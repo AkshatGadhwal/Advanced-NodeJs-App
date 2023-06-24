@@ -30,7 +30,6 @@ const getUsers = (page = 1) => {
 };
 
 const getUserById = (userId) => {
-    console.log(userId)
     return users.find((user) => user["id"] == userId);
 };
 
@@ -57,7 +56,7 @@ const updateUser = (userId, userData) => {
 };
 
 const deleteUser = (userId) => {
-  const userIndex = users.findIndex((user) => user.id === userId);
+  const userIndex = users.findIndex((user) => user.id == userId);
 
   if (userIndex !== -1) {
     return users.splice(userIndex, 1)[0];
