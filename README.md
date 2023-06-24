@@ -42,6 +42,10 @@ Make sure to set the following environment variables:
 
 2. The server will start running on `http://localhost:6969` ( or you can configure in your .env).
 
+## Data Storag
+
+User data is stored in memory using the users.json file. When the server starts, it loads the initial data from the file and performs all CRUD operations in memory. Note that the data is not persisted across server restarts.
+
 ## API Endpoints
 
 ### 1. Get User List

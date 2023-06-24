@@ -10,7 +10,7 @@ app.use(apiKeyAuth);
 
 app.use('/api/users', userRoutes);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 6969;
 const host = process.env.HOST || 'localhost';
 
 app.listen(port, host, () => {

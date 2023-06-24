@@ -1,8 +1,6 @@
 import users from '../models/users.json' assert { type: 'json' };
 
-const PAGE_SIZE = 10;
-let lastUserId = 50;
-
+let lastUserId = parseInt(users[users.length-1]);
 
 const generateUserId = () => {
     lastUserId++;
@@ -17,15 +15,15 @@ const getUserByName = (name) => {
     return users.find((user) => user["name"] == name);
 };
 
-const getUsers = (page = 1) => {
-  const startIndex = (page - 1) * PAGE_SIZE;
-  const endIndex = page * PAGE_SIZE;
+const getUsers = (page = 1, perPage = 10) => {
+  const startIndex = (page - 1) * perPage;
+  const endIndex = page * perPage;
   const paginatedUsers = users.slice(startIndex, endIndex);
 
   return {
-    data: paginatedUsers,
     page,
-    totalPages: Math.ceil(users.length / PAGE_SIZE),
+    totalPages: Math.ceil(users.length / perPage),
+    data: paginatedUsers,
   };
 };
 

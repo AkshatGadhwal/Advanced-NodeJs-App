@@ -2,7 +2,8 @@ import * as userService from '../services/userService.js';
 
 const getAllUsers = (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  const users = userService.getUsers(page);
+  const perPage = parseInt(req.query.perPage) || 10;
+  const users = userService.getUsers(page,perPage);
   res.json(users);
 };
 
