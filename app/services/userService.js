@@ -46,12 +46,11 @@ const createUser = (userData) => {
 };
 
 const updateUser = (userId, userData) => {
-  const user = users.find((user) => user.id === userId);
-
-  if (user) {
-    user.name = userData.name || user.name;
-    user.email = userData.email || user.email;
-    return user;
+  const userIndex = users.findIndex((user) => user.id === userId);
+  if (userIndex != -1) {
+    users[userIndex].name = userData.name || users[userIndex].name;
+    users[userIndex].email = userData.email || users[userIndex].email;
+    return users[userIndex];
   } else {
     return null;
   }

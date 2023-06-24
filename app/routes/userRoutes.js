@@ -1,4 +1,5 @@
 import express from 'express';
+import {createValidator, updateValidator} from '../middlewares/validator.js';
 const router = express.Router();
 import {
   getAllUsers,
@@ -9,9 +10,9 @@ import {
 } from '../controllers/userController.js';
 
 router.get('/', getAllUsers);
-router.post('/', createUser);
+router.post('/', createValidator, createUser);
 router.get('/:id', getUserById);
-router.put('/:id', updateUser);
+router.put('/:id', updateValidator, updateUser);
 router.delete('/:id', deleteUser);
 
 export default router;
