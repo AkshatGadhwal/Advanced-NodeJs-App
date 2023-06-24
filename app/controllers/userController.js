@@ -3,7 +3,7 @@ import * as userService from '../services/userService.js';
 import validator from 'validator';
 
 const emailValidator = (email) => {
-    if (validator.isEmpty(email)) { return false; }
+    if ( validator.isEmpty(email) ) { return false; }
     return validator.isEmail(email);
 };
 
@@ -32,12 +32,14 @@ const getUserById = (req, res) => {
 const createUser = (req, res) => {
   const userData = req.body;
   const {email, name} = userData;
-  if( !emailValidator(email) ) { res.status(400).json( { error: 'Please enter a valid email'} )};
-  if( !nameValidator(name) ) { res.status(400).json( { error: 'Please Enter a valid name'} )};
-  if( userService.getUserByEmail(email) ) { res.status(409).json( { error: 'Email already exist'} )};
-  const newUser = userService.createUser(userData);
-
-  res.status(201).json(newUser);
+  
+  if( !emailValidator(email) ) { res.status(400).json( { error: 'Please enter a valid email'} ); }
+  else if( !nameValidator(name) ) { res.status(400).json( { error: 'Name should only contain Alphabets'} );  }
+  else if( userService.getUserByEmail(email) ) { res.status(409).json( { error: 'Email already exist'} )}
+  else {
+      const newUser = userService.createUser(userData);
+      res.status(201).json(newUser);
+  }
 };
 
 const updateUser = (req, res) => {

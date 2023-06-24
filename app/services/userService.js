@@ -1,4 +1,4 @@
-import users from '../models/users.js';
+import users from '../models/users.json' assert { type: 'json' };
 
 const PAGE_SIZE = 10;
 let lastUserId = 50;
