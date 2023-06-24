@@ -1,3 +1,6 @@
+// this logic handle updating the database. However, it is not implementated for sake of simplicity
+
+
 import { readFile, writeFile } from 'fs/promises';
 
 const filePath = '../models/users.json';
