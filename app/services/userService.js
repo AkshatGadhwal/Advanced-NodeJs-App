@@ -1,20 +1,70 @@
-let nextUserId = 1;
 import users from '../models/users.js';
 
-export const getUserList = (page, limit) => {
+const PAGE_SIZE = 10;
+let lastUserId = 50;
+
+
+const generateUserId = () => {
+    lastUserId++;
+    return lastUserId.toString();
 };
 
-export const createUser = (userData) => {
+const getUserByEmail = (email) => {
+    return users.find((user) => user["email"] == email);
 };
 
-export const getUserById = (userId) => {
-  return users.find((user) => user.id === Number(userId));
+const getUserByName = (name) => {
+    return users.find((user) => user["name"] == name);
 };
 
-// Update a user
-export const updateUser = (userId, updatedUserData) => {
+const getUsers = (page = 1) => {
+  const startIndex = (page - 1) * PAGE_SIZE;
+  const endIndex = page * PAGE_SIZE;
+  const paginatedUsers = users.slice(startIndex, endIndex);
+
+  return {
+    data: paginatedUsers,
+    page,
+    totalPages: Math.ceil(users.length / PAGE_SIZE),
+  };
 };
 
-// Delete a user
-export const deleteUser = (userId) => {
+const getUserById = (userId) => {
+    console.log(userId)
+    return users.find((user) => user["id"] == userId);
 };
+
+const createUser = (userData) => {
+  const { name, email } = userData;
+  const newUser = {
+    id: generateUserId(), // Generate a unique user ID
+    name,
+    email,
+  };
+  users.push(newUser);
+  return newUser;
+};
+
+const updateUser = (userId, userData) => {
+  const user = users.find((user) => user.id === userId);
+
+  if (user) {
+    user.name = userData.name || user.name;
+    user.email = userData.email || user.email;
+    return user;
+  } else {
+    return null;
+  }
+};
+
+const deleteUser = (userId) => {
+  const userIndex = users.findIndex((user) => user.id === userId);
+
+  if (userIndex !== -1) {
+    return users.splice(userIndex, 1)[0];
+  } else {
+    return null;
+  }
+};
+
+export { getUsers, getUserById, createUser, updateUser, deleteUser, getUserByEmail, getUserByName };

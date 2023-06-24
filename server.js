@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import apiKeyAuth from './middlewares/apiKeyAuth.js';
-import userRoutes from './routes/userRoutes.js';
+import apiKeyAuth from './app/middlewares/apiKeyAuth.js';
+import userRoutes from './app/routes/userRoutes.js';
 
 const app = express();
 
@@ -10,6 +10,9 @@ app.use(apiKeyAuth);
 
 app.use('/api/users', userRoutes);
 
-app.listen(process.env.PORT || 3000, process.env.HOST || 'localhost', () => {
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || 'localhost';
+
+app.listen(port, host, () => {
   console.log(`Server started on ${host}:${port}`);
 });

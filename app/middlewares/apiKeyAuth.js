@@ -1,4 +1,4 @@
-import validApiKeys from '../models/apiKeys';
+import validApiKeys from '../models/apiKeys.js';
 
 const apiKeyAuth = (req, res, next) => {
   const apiKey = req.headers['x-api-key'];
